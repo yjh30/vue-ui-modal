@@ -43,6 +43,20 @@
             line-height: 1.5;
             font-size: 14px;
             color: #666;
+
+            input.prompt-input {
+                box-sizing: border-box;
+                margin-top: 10px;
+                width: 100%;
+                border: 1px solid #CCC; /* !no */
+                height: 35px;
+                border-radius: 3px;
+                font-size: 14px;
+                color: #666;
+                text-align: center;
+                outline: none;
+                -webkit-appearance: none;
+            }
         }
 
         .btn {
@@ -50,12 +64,12 @@
             line-height: 44px;
             color: #007aff;
             font-size: 16px;
-            border-top: 1px solid #dadada; /*!no*/
+            border-top: 1px solid #dadada; /* !no */
             padding: 0;
 
             // Possible only has a button，don't use last-child selector
             &:nth-child(2) {
-                border-left: 1px solid #dadada; /*!no*/
+                border-left: 1px solid #dadada; /* !no */
             }
         }
     }

@@ -1,9 +1,10 @@
 <template>
     <div class="example">
-        <div id="alert" class="btn" @click="previewAlert">点击预览alert提示组件</div>
-        <div id="confirm" class="btn" @click="previewConfirm">点击预览confirm提示组件</div>
-        <div id="toast" class="btn" @click="previewToast">点击预览toast提示组件</div>
-        <div id="loading" class="btn" @click="previewLoading">点击预览loading提示组件</div>
+        <div class="btn" @click="previewAlert">点击预览alert提示组件</div>
+        <div class="btn" @click="previewConfirm">点击预览confirm提示组件</div>
+        <div class="btn" @click="previewPrompt">点击预览prompt提示组件</div>
+        <div class="btn" @click="previewToast">点击预览toast提示组件</div>
+        <div class="btn" @click="previewLoading">点击预览loading提示组件</div>
     </div>
 </template>
 
@@ -44,6 +45,22 @@
 
                 promise.catch(() => {
                     utils.toast('你否定了');
+                });
+            },
+
+            previewPrompt: function() {
+                var promise = utils.prompt({
+                    msg: '谈谈你对最近的工作有啥感受？',
+                    leftButtonText: '忽略',
+                    rightButtonText: '提交'
+                });
+
+                promise.then(res => {
+                    utils.toast(`你的回答是：${res}`);
+                });
+
+                promise.catch(() => {
+                    utils.toast('太狠了，再也不见');
                 });
             },
 

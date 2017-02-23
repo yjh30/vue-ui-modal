@@ -41,7 +41,7 @@
         pointer-events: none;
 
         .toast-msg {
-            max-width: px2rem(320);
+            max-width: 320px;
             line-height: 1.5;
             padding: 10px 20px;
             color: #FFF;

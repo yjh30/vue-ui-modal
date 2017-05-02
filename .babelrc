@@ -1,8 +1,6 @@
 {
-  "presets": ["es2015", "stage-0"],
+  "presets": ["latest"],
   "plugins": [
-    "add-module-exports",
-    "transform-es2015-modules-umd",
     "transform-runtime",
     "transform-vue-jsx"
   ]

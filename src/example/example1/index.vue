@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import * as utils from '../../main/index';
+    import utils from '../../main/index';
 
     export default {
         data: function() {

@@ -1,8 +1,11 @@
 <template>
     <div class="modal-component loading-component flex-center">
-        <div class="loading-bg flex-center">
+        <div class="loading-bg">
             <transition name="loading" v-on:after-leave="afterLeave">
-                <canvas :width="canvasSize" :height="canvasSize" class="loading" v-if="status"></canvas>
+                <div class="wrapper flex-center">
+                    <canvas :width="canvasSize" :height="canvasSize" class="loading" v-if="status"></canvas>
+                    <span class="msg" v-if="msg && status">{{msg}}</span>
+                </div>
             </transition>
         </div>
     </div>
@@ -16,6 +19,7 @@
                 canvasSize: 64
             }
         },
+        props: ['msg'],
         mounted: function() {
             this.animate();
         },
@@ -77,15 +81,25 @@
         background-color: transparent!important;
         pointer-events: none;
         .loading-bg {
-            background-color: rgba(0,0,0,0.7);
-            width: 70px;
-            min-height: 70px;
+            background-color: rgba(0,0,0,0.8);
+            max-width: 200px;
+            padding: 20px 25px;
             border-radius: 5px;
+            line-height: 1;
+        }
+        .wrapper {
+            width: 100%;
             flex-wrap: wrap;
+            flex-direction: column;
         }
         canvas {
             width: 30px;
             height: 30px;
+        }
+        .msg {
+            color: #FFF;
+            line-height: 1.3;
+            margin-top: 15px;
         }
     }
 

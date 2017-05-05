@@ -3,7 +3,7 @@ import loading from './index.vue';
 
 var cacheLoading;
 
-export default function() {
+export default function(msg) {
     if (cacheLoading) {
         cacheLoading.status = 0;
     }
@@ -13,18 +13,18 @@ export default function() {
 
     cacheLoading = new Vue({
         el: el,
-        data: function() {
+        data() {
             return {
                 status: 1
             }
         },
         methods: {
-            destroy: function() {
+            destroy() {
                 this.status = 0;
             }
         },
         watch: {
-            status: function(val) {
+            status(val) {
                 if (val === 0) {
                     document.body.removeChild(this.$el);
                 }
@@ -39,9 +39,13 @@ export default function() {
             var options = {};
 
             options.on = {
-                dismiss: function(val) {
+                dismiss(val) {
                     self.status = val;
                 }
+            };
+
+            options.props = {
+                msg: msg || ''
             };
 
             if (this.status) {

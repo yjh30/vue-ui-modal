@@ -102,7 +102,7 @@
         .msg {
             color: #FFF;
             line-height: 1.3;
-            margin-top: 10px;
+            margin-top: 15px;
         }
     }
 

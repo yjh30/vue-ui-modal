@@ -1,59 +1,52 @@
 import Vue from 'vue';
 import alert from './index.vue';
+import { getNativeTypeOf } from '../utils';
 
-export default function(msg) {
-    var config = {};
-    var options = {
-        props: {}
-    };
-
-    var el = document.createElement('div');
-    document.body.appendChild(el);
-
-    if (typeof msg === 'object') {
-        config = msg;
-    } else {
-        config.msg = msg;
+export default msg => {
+    if (!msg) {
+        return Promise.reject('no alert msg');
     }
 
-    return new Promise((resolve, reject) => {
-        if (!config.msg) {
-            reject('no alert msg');
-            return;
+    let options = {};
+    options.props = {};
+
+    if (getNativeTypeOf(msg) === 'object') {
+        if (msg.msg) {
+            options.props.msg = msg.msg;
+        } else {
+            return Promise.reject('no alert msg');
         }
+        options.props.buttonText = msg.buttonText || '确定';
+    } else {
+        options.props.msg = msg;
+        options.props.buttonText = '确定';
+    }
+
+    return new Promise(resolve => {
+        const el = document.createElement('div');
+        document.body.appendChild(el);
 
         new Vue({
             el: el,
-            data: function() {
+            data() {
                 return {
                     status: 1
-                }
-            },
-            watch: {
-                status: function(val) {
-                    if (val === 0) {
-                        document.body.removeChild(this.$el);
-                        resolve();
-                    }
                 }
             },
             components: {
                 alert: alert
             },
+            methods: {
+                dismiss() {
+                    this.status = 0;
+                    document.body.removeChild(this.$el);
+                    resolve();
+                }
+            },
             /*eslint no-unused-vars: "off"*/
             render(h) {
-                var self = this;
-
-                options.props.msg = config.msg;
-
-                if (config.buttonText) {
-                    options.props.buttonText = config.buttonText;
-                }
-
                 options.on = {
-                    dismiss: function(val) {
-                        self.status = val;
-                    }
+                    dismiss: this.dismiss
                 };
                 if (this.status) {
                     return (

@@ -1,41 +1,40 @@
 <template>
     <div class="modal-component loading-component flex-center">
-        <div class="loading-bg">
-            <transition name="loading" v-on:after-leave="afterLeave">
+        <transition name="modal" :appear="true" v-on:after-leave="afterLeave">
+            <div class="loading-bg">
                 <div class="wrapper flex-center">
-                    <canvas :width="canvasSize" :height="canvasSize" class="loading" v-if="status"></canvas>
-                    <span class="msg" v-if="msg && status">{{msg}}</span>
+                    <canvas :width="canvasSize" :height="canvasSize" class="loading"></canvas>
+                    <span class="msg" v-if="msg">{{msg}}</span>
                 </div>
-            </transition>
-        </div>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
     export default {
-        data: function() {
+        data() {
             return {
-                status: 1,
                 canvasSize: 64
             }
         },
         props: ['msg'],
-        mounted: function() {
+        mounted() {
             this.animate();
         },
         methods: {
-            afterLeave: function() {
-                this.$emit('dismiss', 0);
+            afterLeave() {
+                this.$emit('dismiss');
             },
-            animate: function() {
-                var self = this;
-                var drawCanvas;
+            animate() {
+                const self = this;
+                let drawCanvas;
 
-                var canvas = this.$el.querySelector('canvas');
-                var ctx = canvas.getContext('2d');
+                const canvas = this.$el.querySelector('canvas');
+                const ctx = canvas.getContext('2d');
 
-                var d = 0;
-                var radius = canvas.width / 2;
+                let d = 0;
+                const radius = canvas.width / 2;
 
                 window.requestAnimationFrame(function fn() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -53,23 +52,23 @@
                     window.requestAnimationFrame(fn);
                 });
             },
-            getDrawArcCanvas: function() {
-                var canvas = document.createElement('canvas');
+            getDrawArcCanvas() {
+                const canvas = document.createElement('canvas');
                 canvas.width = this.canvasSize;
                 canvas.height = this.canvasSize;
 
-                var ctx = canvas.getContext('2d');
-                var radius = canvas.width / 2;
+                const ctx = canvas.getContext('2d');
+                const radius = canvas.width / 2;
 
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 2;
 
-                ctx.arc(radius, radius, radius - 4, 0, Math.PI / 2, true);
+                ctx.arc(radius, radius, radius - 2, 0, Math.PI / 2, true);
                 ctx.stroke();
 
                 return canvas;
             },
-            degToRadian: function(deg) {
+            degToRadian(deg) {
                 return deg * Math.PI / 180;
             }
         }

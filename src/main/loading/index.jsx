@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import loading from './index.vue';
 
-var cacheLoading;
+let lastVm;
 
-export default function(msg) {
-    if (cacheLoading) {
-        cacheLoading.status = 0;
+export default msg => {
+    if (lastVm && lastVm.status === 1) {
+        lastVm.destroy();
     }
 
     var el = document.createElement('div');
     document.body.appendChild(el);
 
-    cacheLoading = new Vue({
+    lastVm = new Vue({
         el: el,
         data() {
             return {
@@ -21,13 +21,7 @@ export default function(msg) {
         methods: {
             destroy() {
                 this.status = 0;
-            }
-        },
-        watch: {
-            status(val) {
-                if (val === 0) {
-                    document.body.removeChild(this.$el);
-                }
+                this.$el.parentNode.removeChild(this.$el);
             }
         },
         components: {
@@ -35,13 +29,9 @@ export default function(msg) {
         },
         /*eslint no-unused-vars: "off"*/
         render(h) {
-            var self = this;
-            var options = {};
-
+            const options = {};
             options.on = {
-                dismiss(val) {
-                    self.status = val;
-                }
+                dismiss: this.destroy
             };
 
             options.props = {
@@ -56,5 +46,5 @@ export default function(msg) {
         }
     });
 
-    return cacheLoading;
+    return lastVm;
 }

@@ -1,18 +1,20 @@
 <template>
     <div class="modal-component flex-center">
-        <div class="modal-dialog">
-            <div class="modal-title">提示</div>
-            <div class="modal-body">
-                <div>{{msg}}</div>
-                <div>
-                    <input class="prompt-input" type="text" v-model="submitInfo">
+        <transition name="modal" :appear="true">
+            <div class="modal-dialog">
+                <div class="modal-title">提示</div>
+                <div class="modal-body">
+                    <div>{{msg}}</div>
+                    <div>
+                        <input class="prompt-input" type="text" v-model="submitInfo">
+                    </div>
+                </div>
+                <div class="modal-footer flex">
+                    <div class="btn cancel-btn" @click="cancel">{{leftButtonText}}</div>
+                    <div class="btn ok-btn" @click="ok">{{rightButtonText}}</div>
                 </div>
             </div>
-            <div class="modal-footer flex">
-                <div class="btn cancel-btn" v-on:click="cancel">{{leftButtonText}}</div>
-                <div class="btn ok-btn" v-on:click="ok">{{rightButtonText}}</div>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -27,25 +29,24 @@
         },
         props: {
             msg: String,
-            leftButtonText: {
-                type: String,
-                default: '取消'
-            },
-            rightButtonText: {
-                type: String,
-                default: '确定'
-            }
+            leftButtonText: String,
+            rightButtonText: String
         },
         methods: {
             cancel: function() {
-                this.$emit('dismiss', 0, 'cancel');
+                setTimeout(() => {
+                    this.$emit('dismiss', 'cancel');
+                }, 200);
             },
             ok: function() {
-                if (!this.submitInfo) {
+                if (this.submitInfo === '') {
                     return toast(`请先填写${this.rightButtonText}信息`);
                 }
-                this.$emit('dismiss', 0, 'ok', this.submitInfo);
+                setTimeout(() => {
+                    this.$emit('dismiss', 'ok', this.submitInfo);
+                }, 200);
             }
         }
     }
 </script>
+

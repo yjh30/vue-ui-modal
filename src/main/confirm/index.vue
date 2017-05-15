@@ -1,13 +1,15 @@
 <template>
     <div class="modal-component flex-center">
-        <div class="modal-dialog">
-            <div class="modal-title">提示</div>
-            <div class="modal-body">{{msg}}</div>
-            <div class="modal-footer flex">
-                <div class="btn cancel-btn" v-on:click="cancel">{{leftButtonText}}</div>
-                <div class="btn ok-btn" v-on:click="ok">{{rightButtonText}}</div>
-            </div>
-        </div>
+        <transition name="modal" :appear="true">
+            <div class="modal-dialog">
+                <div class="modal-title">提示</div>
+                <div class="modal-body">{{msg}}</div>
+                <div class="modal-footer flex">
+                    <div class="btn cancel-btn" v-on:click="cancel">{{leftButtonText}}</div>
+                    <div class="btn ok-btn" v-on:click="ok">{{rightButtonText}}</div>
+                </div>
+            </div>  
+        </transition>
     </div>
 </template>
 
@@ -15,21 +17,19 @@
     export default {
         props: {
             msg: String,
-            leftButtonText: {
-                type: String,
-                default: '取消'
-            },
-            rightButtonText: {
-                type: String,
-                default: '确定'
-            }
+            leftButtonText: String,
+            rightButtonText: String
         },
         methods: {
             cancel: function() {
-                this.$emit('dismiss', 0, 'cancel');
+                setTimeout(() => {
+                    this.$emit('dismiss', 'cancel');
+                }, 200);
             },
             ok: function() {
-                this.$emit('dismiss', 0, 'ok');
+                setTimeout(() => {
+                    this.$emit('dismiss', 'ok');
+                }, 200);
             }
         }
     }

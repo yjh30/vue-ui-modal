@@ -66,5 +66,8 @@ module.exports = {
         path: path.join(__dirname, '../build'),
         filename: '[name].js'
     },
-    plugins: plugins
+    plugins: plugins,
+    devServer: {
+        disableHostCheck: true
+    }
 };

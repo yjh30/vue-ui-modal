@@ -1,47 +1,47 @@
 import Vue from 'vue';
 import prompt from './index.vue';
 
-export default function(msg) {
-    var config = {};
-    var options = {
-        props: {}
-    };
+export default msg => {
+    if (!msg) {
+        return Promise.reject('no prompt msg');
+    }
 
-    var el = document.createElement('div');
-    document.body.appendChild(el);
+    let options = {};
+    options.props = {};
 
     if (typeof msg === 'object') {
-        config = msg;
+        if (msg.msg) {
+            options.props.msg = msg.msg;
+        } else {
+            return Promise.reject('no prompt msg');
+        }
+        options.props.leftButtonText = msg.leftButtonText || '取消';
+        options.props.rightButtonText = msg.rightButtonText || '确定';
     } else {
-        config.msg = msg;
+        options.props.msg = msg;
+        options.props.leftButtonText = '取消';
+        options.props.rightButtonText = '确定';
     }
 
     return new Promise((resolve, reject) => {
-        var utils = this;
-
-        if (!config.msg) {
-            reject('no prompt msg');
-            return;
-        }
+        const el = document.createElement('div');
+        document.body.appendChild(el);
 
         new Vue({
             el: el,
-            data: function() {
+            data() {
                 return {
-                    status: 1,
-                    dismissType: '',
-                    answer: ''
+                    status: 1
                 }
             },
-            watch: {
-                status: function(val) {
-                    if (val === 0) {
-                        document.body.removeChild(this.$el);
-                        if (this.dismissType === 'ok') {
-                            resolve(this.answer);
-                        } else if (this.dismissType === 'cancel') {
-                            reject();
-                        }
+            methods: {
+                dismiss(dismissType, answer) {
+                    this.status = 0;
+                    document.body.removeChild(this.$el);
+                    if (dismissType === 'ok') {
+                        resolve(answer);
+                    } else if (dismissType === 'cancel') {
+                        reject();
                     }
                 }
             },
@@ -51,23 +51,8 @@ export default function(msg) {
 
             /*eslint no-unused-vars: "off"*/
             render(h) {
-                var self = this;
-                options.props.msg = config.msg;
-
-                if (config.leftButtonText) {
-                    options.props.leftButtonText = config.leftButtonText;
-                }
-
-                if (config.rightButtonText) {
-                    options.props.rightButtonText = config.rightButtonText;
-                }
-
                 options.on = {
-                    dismiss: function(status, dismissType, answer) {
-                        self.status = status;
-                        self.dismissType = dismissType;
-                        self.answer = answer;
-                    }
+                    dismiss: this.dismiss
                 };
                 if (this.status) {
                     return (

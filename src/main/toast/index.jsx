@@ -1,51 +1,47 @@
 import Vue from 'vue';
 import toast from './index.vue';
 
-var cacheToast;
+let lastVm;
+const _toString = Object.prototype.toString;
 
-export default function(...args) {
-    if (cacheToast) {
-        cacheToast.status = 0;
+export default arg => {
+    if (typeof arg === 'undefined') {
+        console.warn('vue-ui-modal toast parameter not provided');
+        return;
+    }
+    if (lastVm && lastVm.status === 1) {
+        lastVm.destroy();
     }
 
-    var msg = args[0];
-    var autoDestroy = args[1];
-    var showDurationTimeout = args[2];
+    let options = {};
+    options.props = {};
+    const argType = _toString.call(arg).split(' ')[1].replace(']', '').toLowerCase();
 
-    if (typeof autoDestroy === 'number') {
-        showDurationTimeout = autoDestroy;
-        autoDestroy = true;
+    if (argType === 'object') {
+        options.props = arg;
+    } else if (argType === 'string') {
+        options.props.msg = arg;
+        options.props.dismissTimeout = 2000;
+        options.props.autoDismiss = true;
     } else {
-        if (typeof autoDestroy !== 'boolean') {
-            autoDestroy = true;
-        }
-        if (typeof showDurationTimeout !== 'number') {
-            showDurationTimeout = 2000;
-        }
+        console.warn('vue-ui-modal toast parameter is invalid');
+        return;
     }
 
-    var el = document.createElement('div');
+    const el = document.createElement('div');
     document.body.appendChild(el);
 
-    if (!msg) return;
-
-    cacheToast = new Vue({
+    lastVm = new Vue({
         el: el,
-        data: function() {
+        data() {
             return {
                 status: 1
             }
         },
         methods: {
-            destroy: function() {
+            destroy() {
                 this.status = 0;
-            }
-        },
-        watch: {
-            status: function(val) {
-                if (val === 0) {
-                    document.body.removeChild(this.$el);
-                }
+                this.$el.parentNode.removeChild(this.$el);
             }
         },
         components: {
@@ -53,21 +49,9 @@ export default function(...args) {
         },
         /*eslint no-unused-vars: "off"*/
         render(h) {
-            var self = this;
-            var options = {
-                props: {}
-            };
-
-            options.props.msg = msg;
-            options.props.autoDestroy = autoDestroy;
-            options.props.showDurationTimeout = showDurationTimeout;
-
             options.on = {
-                dismiss: function(val) {
-                    self.status = val;
-                }
+                dismiss: this.destroy
             };
-
             if (this.status) {
                 return (
                     <toast {...options}></toast>
@@ -76,5 +60,5 @@ export default function(...args) {
         }
     });
 
-    return cacheToast;
+    return lastVm;
 }

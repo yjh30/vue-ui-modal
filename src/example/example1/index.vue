@@ -21,45 +21,43 @@
 
         methods: {
             previewAlert: async function() {
-                await utils.alert('第一个alert');
+                await utils.alert('alert demo');
 
-                utils.alert({
-                    msg: '第二个alert',
-                    buttonText: 'OK'
-                })
-                .then(() => {
-                    utils.toast('你点OK了');
-                });
+                // utils.alert({
+                //     msg: 'alert demo',
+                //     buttonText: 'OK'
+                // })
+                // .then(() => {
+                //     utils.toast('你点OK了');
+                // });
             },
 
             previewConfirm: function() {
-                var promise = utils.confirm({
+                // await utils.confirm('alert demo');
+
+                utils.confirm({
                     msg: '你赞成他刚才所说的观点吗？',
                     leftButtonText: '否定',
                     rightButtonText: '赞成'
-                });
-
-                promise.then(() => {
+                })
+                .then(() => {
                     utils.toast('你赞成了');
-                });
-
-                promise.catch(() => {
+                })
+                .catch(() => {
                     utils.toast('你否定了');
                 });
             },
 
             previewPrompt: function() {
-                var promise = utils.prompt({
+                utils.prompt({
                     msg: '谈谈你对最近的工作有啥感受？',
                     leftButtonText: '忽略',
                     rightButtonText: '提交'
-                });
-
-                promise.then(res => {
+                })
+                .then(res => {
                     utils.toast(`你的回答是：${res}`);
-                });
-
-                promise.catch(() => {
+                })
+                .catch(() => {
                     utils.toast('太狠了，再也不见');
                 });
             },
@@ -69,11 +67,11 @@
             },
 
             previewLoading: function() {
-                var vm = utils.loading();
+                var vm = utils.loading('正在加载中...');
                 window.clearTimeout(this.timeoutId);
                 this.timeoutId = setTimeout(() => {
-                    vm.destroy();
-                    utils.toast('loading在5秒后销毁了');
+                    // vm.destroy();
+                    // utils.toast('loading在5秒后销毁了');
                 }, 5000);
             }
         }

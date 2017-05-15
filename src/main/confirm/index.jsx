@@ -1,69 +1,58 @@
 import Vue from 'vue';
 import confirm from './index.vue';
+import { getNativeTypeOf } from '../utils';
 
-export default function(msg) {
-    var config = {};
-    var options = {
-        props: {}
-    };
+export default msg => {
+    if (!msg) {
+        return Promise.reject('no confirm msg');
+    }
 
-    var el = document.createElement('div');
-    document.body.appendChild(el);
+    let options = {};
+    options.props = {};
 
-    if (typeof msg === 'object') {
-        config = msg;
+    if (getNativeTypeOf(msg) === 'object') {
+        if (msg.msg) {
+            options.props.msg = msg.msg;
+        } else {
+            return Promise.reject('no confirm msg');
+        }
+        options.props.leftButtonText = msg.leftButtonText || '取消';
+        options.props.rightButtonText = msg.rightButtonText || '确定';
     } else {
-        config.msg = msg;
+        options.props.msg = msg;
+        options.props.leftButtonText = '取消';
+        options.props.rightButtonText = '确定';
     }
 
     return new Promise((resolve, reject) => {
-        if (!config.msg) {
-            reject('no confirm msg');
-            return;
-        }
+        const el = document.createElement('div');
+        document.body.appendChild(el);
 
         new Vue({
             el: el,
-            data: function() {
+            data() {
                 return {
-                    status: 1,
-                    dismissType: ''
+                    status: 1
                 }
             },
-            watch: {
-                status: function(val) {
-                    if (val === 0) {
-                        document.body.removeChild(this.$el);
-                        if (this.dismissType === 'ok') {
-                            resolve();
-                        } else if (this.dismissType === 'cancel') {
-                            reject();
-                        }
+            methods: {
+                dismiss(dismissType) {
+                    this.status = 0;
+                    document.body.removeChild(this.$el);
+                    if (dismissType === 'ok') {
+                        resolve();
+                    } else if (dismissType === 'cancel') {
+                        reject();
                     }
                 }
             },
             components: {
                 confirm: confirm
             },
-
             /*eslint no-unused-vars: "off"*/
             render(h) {
-                var self = this;
-                options.props.msg = config.msg;
-
-                if (config.leftButtonText) {
-                    options.props.leftButtonText = config.leftButtonText;
-                }
-
-                if (config.rightButtonText) {
-                    options.props.rightButtonText = config.rightButtonText;
-                }
-
                 options.on = {
-                    dismiss: function(val, dismissType) {
-                        self.status = val;
-                        self.dismissType = dismissType;
-                    }
+                    dismiss: this.dismiss
                 };
                 if (this.status) {
                     return (

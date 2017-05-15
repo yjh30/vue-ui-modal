@@ -1,35 +1,28 @@
 <template>
     <div class="modal-component toast-component flex-center">
-        <transition name="toast" v-on:after-leave="afterLeave">
-            <div class="toast-msg" v-if="status">{{msg}}</div>
+        <transition name="modal" :appear="true" @after-leave="afterLeave">
+            <div class="toast-msg">{{msg}}</div>
         </transition>
     </div>
 </template>
 
 <script>
     export default {
-        data: function() {
-            return {
-                status: 0
-            }
-        },
-        mounted: function() {
-            this.status = 1;
-            if (this.autoDestroy) {
+        mounted() {
+            if (this.autoDismiss) {
                 setTimeout(() => {
-                    this.status = 0;
-                }, this.showDurationTimeout);
+                    this.$emit('dismiss');
+                }, this.dismissTimeout);
             }
         },
         props: {
             msg: String,
-            autoDestroy: Boolean,
-            showDurationTimeout: Number,
-            stopEnterEffect: Boolean
+            autoDismiss: Boolean,
+            dismissTimeout: Number
         },
         methods: {
-            afterLeave: function() {
-                this.$emit('dismiss', 0);
+            afterLeave() {
+                this.$emit('dismiss');
             }
         }
     }
@@ -43,38 +36,11 @@
         .toast-msg {
             max-width: 320px;
             line-height: 1.5;
-            padding: 10px 20px;
+            padding: 12px 24px;
             color: #FFF;
             font-size: 14px;
             background-color: rgba(0,0,0,0.8);
             border-radius: 3px;
         }
     }
-
-    @keyframes toastIn {
-        0% {
-            transform: translate3d(0, 20%, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
-    }
-    @keyframes toastOut {
-        0% {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-        }
-        100% {
-            opacity: 0;
-            transform: translate3d(0, -100%, 0);
-        }
-    }
-
-    .toast-enter-active {
-        animation: toastIn 0.3s both;
-    }
-    .toast-leave-active {
-        animation: toastOut 0.3s both;
-    }
-
 </style>

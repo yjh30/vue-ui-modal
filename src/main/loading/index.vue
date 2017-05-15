@@ -2,9 +2,11 @@
     <div class="modal-component loading-component flex-center">
         <transition name="modal" :appear="true" v-on:after-leave="afterLeave">
             <div class="loading-bg">
-                <div class="wrapper flex-center">
-                    <canvas :width="canvasSize" :height="canvasSize" class="loading"></canvas>
-                    <span class="msg" v-if="msg">{{msg}}</span>
+                <div class="wrapper">
+                    <div>
+                        <canvas :width="canvasSize" :height="canvasSize" class="loading"></canvas>
+                    </div>
+                    <div class="msg" v-if="msg">{{msg}}</div>
                 </div>
             </div>
         </transition>
@@ -90,6 +92,8 @@
             width: 100%;
             flex-wrap: wrap;
             flex-direction: column;
+            display: flex;
+            align-items: center;
         }
         canvas {
             width: 30px;
@@ -98,7 +102,7 @@
         .msg {
             color: #FFF;
             line-height: 1.3;
-            margin-top: 15px;
+            margin-top: 10px;
         }
     }
 

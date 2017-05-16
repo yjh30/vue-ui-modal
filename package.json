@@ -1,8 +1,8 @@
 {
   "name": "vue-ui-modal",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "It is a tool using the vue building function that contain alert, confirm, prompt, loading",
-  "main": "./build/index.js",
+  "main": "./src/main/index.js",
   "scripts": {
     "dev": "NODE_ENV=development node_modules/.bin/webpack-dev-server --config webpack.config.js --host 0.0.0.0 --port 3000 --progress --colors --inline --hot --no-info --content-base src/",
     "build": "rimraf ./build/ && NODE_ENV=production webpack --config webpack.config.js -p"

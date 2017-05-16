@@ -88,7 +88,7 @@
 	});
 	// vm.destroy(); // 销毁vue组件
 
-### toast example
+### loading example
 	import utils from 'vue-ui-modal';
 
 	/*

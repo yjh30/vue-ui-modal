@@ -142,7 +142,7 @@ import utils from 'vue-ui-modal';
  *  @return vue object
  **/
 
-var vm = utils.loading('正在加载中...');
+const vm = utils.loading('正在加载中...');
 setTimeout(() => {
     vm.destroy();
     utils.toast('loading在5秒后销毁了');

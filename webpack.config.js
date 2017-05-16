@@ -1,14 +1,14 @@
 'use strict';
-const Production = require('./compile/production');
-const Development = require('./compile/development');
+const pro = require('./webpack.pro.config');
+const dev = require('./webpack.dev.config');
 let result;
 
 switch (process.env.NODE_ENV) {
     case "production":
-        result = Production;
+        result = pro;
         break;
     case "development":
-        result = Development;
+        result = dev;
         break;
 }
 

@@ -1,6 +1,6 @@
 ### Installation
 ```console
-$ npm install eslint-loader --save-dev
+$ npm install vue-ui-modal --save
 ```
 
 ### Usage

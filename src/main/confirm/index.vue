@@ -2,7 +2,7 @@
     <div class="modal-component flex-center">
         <transition name="modal" :appear="true">
             <div class="modal-dialog">
-                <div class="modal-title">提示</div>
+                <div class="modal-title" v-if="!hideTitle">{{title}}</div>
                 <div class="modal-body">{{msg}}</div>
                 <div class="modal-footer flex">
                     <div class="btn cancel-btn" v-on:click="cancel">{{leftButtonText}}</div>
@@ -16,6 +16,11 @@
 <script>
     export default {
         props: {
+            hideTitle: {
+                type: Boolean,
+                default: false
+            },
+            title: String,
             msg: String,
             leftButtonText: String,
             rightButtonText: String

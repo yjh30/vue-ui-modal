@@ -21,21 +21,24 @@
 
         methods: {
             previewAlert: async function() {
-                await utils.alert('alert demo');
+                // await utils.alert('alert demo');
 
-                // utils.alert({
-                //     msg: 'alert demo',
-                //     buttonText: 'OK'
-                // })
-                // .then(() => {
-                //     utils.toast('你点OK了');
-                // });
+                utils.alert({
+                    msg: 'alert demo',
+                    buttonText: 'OK',
+                    // hideTitle: true,
+                    title: '自定义alert标题'
+                })
+                .then(() => {
+                    utils.toast('你点OK了');
+                });
             },
 
             previewConfirm: function() {
                 // await utils.confirm('alert demo');
 
                 utils.confirm({
+                    title: '自定义confirm标题',
                     msg: '你赞成他刚才所说的观点吗？',
                     leftButtonText: '否定',
                     rightButtonText: '赞成'
@@ -50,6 +53,7 @@
 
             previewPrompt: function() {
                 utils.prompt({
+                    title: '自定义prompt标题',
                     msg: '谈谈你对最近的工作有啥感受？',
                     leftButtonText: '忽略',
                     rightButtonText: '提交'

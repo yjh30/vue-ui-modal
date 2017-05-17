@@ -8,7 +8,11 @@ export default msg => {
     }
 
     let options = {};
-    options.props = {};
+    options.props = {
+        hideTitle: false,
+        title: '提示',
+        buttonText: '确定'
+    };
 
     if (getNativeTypeOf(msg) === 'object') {
         if (msg.msg) {
@@ -16,10 +20,11 @@ export default msg => {
         } else {
             return Promise.reject('no alert msg');
         }
-        options.props.buttonText = msg.buttonText || '确定';
+        options.props.hideTitle = msg.hideTitle || options.props.hideTitle;
+        options.props.title = msg.title || options.props.title;
+        options.props.buttonText = msg.buttonText || options.props.buttonText;
     } else {
         options.props.msg = msg;
-        options.props.buttonText = '确定';
     }
 
     return new Promise(resolve => {

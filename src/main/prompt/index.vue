@@ -2,7 +2,7 @@
     <div class="modal-component flex-center">
         <transition name="modal" :appear="true">
             <div class="modal-dialog">
-                <div class="modal-title">提示</div>
+                <div class="modal-title" v-if="!hideTitle">{{title}}</div>
                 <div class="modal-body">
                     <div>{{msg}}</div>
                     <div>
@@ -28,6 +28,11 @@
             }
         },
         props: {
+            hideTitle: {
+                type: Boolean,
+                default: false
+            },
+            title: String,
             msg: String,
             leftButtonText: String,
             rightButtonText: String

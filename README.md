@@ -46,8 +46,10 @@ import utils from 'vue-ui-modal';
 
 // utils.alert('天亮了');
 const promise = utils.alert({
+    title: '提示标题',  // 非必填，默认为提示
     msg: '请确定',
-    buttonText: 'Ok'
+    buttonText: 'Ok',
+    hideTitle: false // 隐藏标题，默认false
 });
 
 promise.then(() => {
@@ -68,9 +70,11 @@ import utils from 'vue-ui-modal';
  **/
 
 const promise = utils.confirm({
+    title: '提示标题',  // 非必填，默认为提示
     msg: '你赞成他刚才所说的观点吗？',
     leftButtonText: '否定',
-    rightButtonText: '赞成'
+    rightButtonText: '赞成',
+    hideTitle: false // 隐藏标题，默认false
 });
 
 promise
@@ -95,9 +99,11 @@ import utils from 'vue-ui-modal';
  **/
 
 const promise = utils.prompt({
+    title: '提示标题',  // 非必填，默认为提示
     msg: '谈谈你对最近的工作有啥感受？',
     leftButtonText: '忽略',
-    rightButtonText: '提交'
+    rightButtonText: '提交',
+    hideTitle: false // 隐藏标题，默认false
 });
 
 promise

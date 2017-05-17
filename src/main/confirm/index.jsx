@@ -8,7 +8,12 @@ export default msg => {
     }
 
     let options = {};
-    options.props = {};
+    options.props = {
+        hideTitle: false,
+        title: '提示',
+        leftButtonText: '取消',
+        rightButtonText: '确定'
+    };
 
     if (getNativeTypeOf(msg) === 'object') {
         if (msg.msg) {
@@ -16,12 +21,12 @@ export default msg => {
         } else {
             return Promise.reject('no confirm msg');
         }
-        options.props.leftButtonText = msg.leftButtonText || '取消';
-        options.props.rightButtonText = msg.rightButtonText || '确定';
+        options.props.hideTitle = msg.hideTitle || options.props.hideTitle;
+        options.props.title = msg.title || options.props.title;
+        options.props.leftButtonText = msg.leftButtonText || options.props.leftButtonText;
+        options.props.rightButtonText = msg.rightButtonText || options.props.rightButtonText;
     } else {
         options.props.msg = msg;
-        options.props.leftButtonText = '取消';
-        options.props.rightButtonText = '确定';
     }
 
     return new Promise((resolve, reject) => {

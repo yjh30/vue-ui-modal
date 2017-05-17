@@ -4,8 +4,8 @@ module.exports = {
     plugins: [
         require('autoprefixer'),
         px2rem({
-            baseDpr: 1,
-            remUnit: 37.5,
+            baseDpr: 2,
+            remUnit: 75,
             forcePxComment: '!px',
             keepComment: '!no'
         })

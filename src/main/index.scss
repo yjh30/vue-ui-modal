@@ -26,32 +26,32 @@
     }
 
     .modal-dialog {
-        width: 270px;
+        width: 540px;
         text-align: center;
         background-color: #FFF;
-        border-radius: 5px;
+        border-radius: 10px;
         overflow: hidden;
 
         .modal-title {
-            font-size: 18px;
+            font-size: 36px;
             color: #333;
-            padding: 15px 15px 0;
+            padding: 30px 30px 0;
         }
 
         .modal-body {
-            padding: 10px 15px 20px;
+            padding: 20px 30px 40px;
             line-height: 1.5;
-            font-size: 14px;
+            font-size: 28px;
             color: #666;
 
             input.prompt-input {
                 box-sizing: border-box;
                 margin-top: 10px;
                 width: 100%;
-                border: 1px solid #CCC; /* !no */
-                height: 35px;
-                border-radius: 3px;
-                font-size: 14px;
+                border: 1px solid #CCC; /*!no*/
+                height: 75px;
+                border-radius: 6px;
+                font-size: 28px;
                 color: #666;
                 text-align: center;
                 outline: none;
@@ -61,15 +61,15 @@
 
         .btn {
             flex: 1;
-            line-height: 44px;
+            line-height: 88px;
             color: #007aff;
-            font-size: 16px;
-            border-top: 1px solid #dadada; /* !no */
+            font-size: 32px; /*!px*/
+            border-top: 1px solid #dadada; /*!no*/
             padding: 0;
 
             // Possible only has a button，don't use last-child selector
             &:nth-child(2) {
-                border-left: 1px solid #dadada; /* !no */
+                border-left: 1px solid #dadada; /*!no*/
             }
         }
     }

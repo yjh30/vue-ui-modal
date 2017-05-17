@@ -34,13 +34,13 @@
         pointer-events: none;
 
         .toast-msg {
-            max-width: 320px;
+            max-width: 640px;
             line-height: 1.5;
-            padding: 12px 24px;
+            padding: 24px 48px;
             color: #FFF;
-            font-size: 14px;
+            font-size: 28px;
             background-color: rgba(0,0,0,0.8);
-            border-radius: 3px;
+            border-radius: 6px;
         }
     }
 </style>

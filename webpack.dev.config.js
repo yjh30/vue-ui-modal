@@ -57,7 +57,7 @@ module.exports = {
         host: "0.0.0.0",
         contentBase: path.join(__dirname, "./src"),
         compress: true,
-        port: 9999
+        port: 3333
     },
     resolve: {
         alias: {

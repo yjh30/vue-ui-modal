@@ -83,9 +83,9 @@
         pointer-events: none;
         .loading-bg {
             background-color: rgba(0,0,0,0.8);
-            max-width: 200px;
-            padding: 20px 25px;
-            border-radius: 5px;
+            max-width: 400px;
+            padding: 40px 50px;
+            border-radius: 10px;
             line-height: 1;
         }
         .wrapper {
@@ -96,13 +96,13 @@
             align-items: center;
         }
         canvas {
-            width: 30px;
-            height: 30px;
+            width: 60px;
+            height: 60px;
         }
         .msg {
             color: #FFF;
             line-height: 1.3;
-            margin-top: 15px;
+            margin-top: 30px;
         }
     }
 

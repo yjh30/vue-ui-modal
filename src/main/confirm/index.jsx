@@ -12,7 +12,8 @@ export default msg => {
         hideTitle: false,
         title: '提示',
         leftButtonText: '取消',
-        rightButtonText: '确定'
+        rightButtonText: '确定',
+        callback: () => {}
     };
 
     if (getNativeTypeOf(msg) === 'object') {
@@ -25,6 +26,7 @@ export default msg => {
         options.props.title = msg.title || options.props.title;
         options.props.leftButtonText = msg.leftButtonText || options.props.leftButtonText;
         options.props.rightButtonText = msg.rightButtonText || options.props.rightButtonText;
+        options.props.callback = msg.callback || options.props.callback;
     } else {
         options.props.msg = msg;
     }
@@ -42,13 +44,24 @@ export default msg => {
             },
             methods: {
                 dismiss(dismissType) {
-                    this.status = 0;
-                    document.body.removeChild(this.$el);
                     if (dismissType === 'ok') {
                         resolve();
+                        if (msg.callback) {
+                            const result = msg.callback();
+                            if (result === false) return;
+                            if (result && result.then && result.catch) {
+                                result.then(() => {
+                                    this.status = 0;
+                                    document.body.removeChild(this.$el);
+                                });
+                                return;
+                            }
+                        }
                     } else if (dismissType === 'cancel') {
                         reject();
                     }
+                    this.status = 0;
+                    document.body.removeChild(this.$el);
                 }
             },
             components: {

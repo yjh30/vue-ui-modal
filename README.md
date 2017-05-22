@@ -74,7 +74,8 @@ const promise = utils.confirm({
     msg: '你赞成他刚才所说的观点吗？',
     leftButtonText: '否定',
     rightButtonText: '赞成',
-    hideTitle: false // 隐藏标题，默认false
+    hideTitle: false, // 隐藏标题，默认false
+    callback: () => {} // 默认为空函数，返回false将不会销毁组件，返回promise，非resolve状态也不会销毁状态
 });
 
 promise

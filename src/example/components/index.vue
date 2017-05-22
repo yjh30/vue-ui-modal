@@ -41,7 +41,10 @@
                     title: '自定义confirm标题',
                     msg: '你赞成他刚才所说的观点吗？',
                     leftButtonText: '否定',
-                    rightButtonText: '赞成'
+                    rightButtonText: '赞成',
+                    confirmCallback() {
+                        console.log('😄');
+                    }
                 })
                 .then(() => {
                     utils.toast('你赞成了');

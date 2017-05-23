@@ -12,7 +12,8 @@ export default msg => {
         hideTitle: false,
         title: '提示',
         leftButtonText: '取消',
-        rightButtonText: '确定'
+        rightButtonText: '确定',
+        className: ''
     };
 
     if (getNativeTypeOf(msg) === 'object') {
@@ -25,6 +26,7 @@ export default msg => {
         options.props.title = msg.title || options.props.title;
         options.props.leftButtonText = msg.leftButtonText || options.props.leftButtonText;
         options.props.rightButtonText = msg.rightButtonText || options.props.rightButtonText;
+        options.props.className = msg.className || options.props.className;
     } else {
         options.props.msg = msg;
     }

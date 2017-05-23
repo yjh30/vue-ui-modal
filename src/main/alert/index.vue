@@ -1,7 +1,7 @@
 <template>
     <div class="modal-component flex-center">
         <transition name="modal" :appear="true">
-            <div class="modal-dialog">
+            <div :class="['modal-dialog', className]">
                 <div class="modal-title" v-if="!hideTitle">{{title}}</div>
                 <div class="modal-body">{{msg}}</div>
                 <div class="modal-footer flex">
@@ -21,7 +21,8 @@
             },
             title: String,
             msg: String,
-            buttonText: String
+            buttonText: String,
+            className: String
         },
         methods: {
             ok: function() {

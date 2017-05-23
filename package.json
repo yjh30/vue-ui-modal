@@ -1,6 +1,6 @@
 {
   "name": "vue-ui-modal",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "It is a tool using the vue building function that contain alert, confirm, prompt, loading",
   "main": "./src/main/index.js",
   "scripts": {

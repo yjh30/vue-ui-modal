@@ -27,7 +27,8 @@
                     msg: 'alert demo',
                     buttonText: 'OK',
                     // hideTitle: true,
-                    title: '自定义alert标题'
+                    title: '自定义alert标题',
+                    className: 'custom-alert'
                 })
                 .then(() => {
                     utils.toast('你点OK了');
@@ -42,6 +43,7 @@
                     msg: '你赞成他刚才所说的观点吗？',
                     leftButtonText: '否定',
                     rightButtonText: '赞成',
+                    className: 'custom-confirm',
                     confirmCallback() {
                         console.log('😄');
                     }
@@ -59,7 +61,8 @@
                     title: '自定义prompt标题',
                     msg: '谈谈你对最近的工作有啥感受？',
                     leftButtonText: '忽略',
-                    rightButtonText: '提交'
+                    rightButtonText: '提交',
+                    className: 'custom-prompt'
                 })
                 .then(res => {
                     utils.toast(`你的回答是：${res}`);

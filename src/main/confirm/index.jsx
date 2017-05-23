@@ -13,6 +13,7 @@ export default msg => {
         title: '提示',
         leftButtonText: '取消',
         rightButtonText: '确定',
+        className: '',
         callback: () => {}
     };
 
@@ -26,6 +27,7 @@ export default msg => {
         options.props.title = msg.title || options.props.title;
         options.props.leftButtonText = msg.leftButtonText || options.props.leftButtonText;
         options.props.rightButtonText = msg.rightButtonText || options.props.rightButtonText;
+        options.props.className = msg.className || options.props.className;
         options.props.callback = msg.callback || options.props.callback;
     } else {
         options.props.msg = msg;

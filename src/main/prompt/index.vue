@@ -1,7 +1,7 @@
 <template>
     <div class="modal-component flex-center">
         <transition name="modal" :appear="true">
-            <div class="modal-dialog">
+            <div :class="['modal-dialog', className]">
                 <div class="modal-title" v-if="!hideTitle">{{title}}</div>
                 <div class="modal-body">
                     <div>{{msg}}</div>
@@ -35,7 +35,8 @@
             title: String,
             msg: String,
             leftButtonText: String,
-            rightButtonText: String
+            rightButtonText: String,
+            className: String,
         },
         methods: {
             cancel: function() {

@@ -28,19 +28,4 @@
     }
 </script>
 
-<style lang="sass">
-    .toast-component {
-        background-color: transparent!important;
-        pointer-events: none;
-
-        .toast-msg {
-            max-width: 640px;
-            line-height: 1.5;
-            padding: 24px 48px;
-            color: #FFF;
-            font-size: 28px;
-            background-color: rgba(0,0,0,0.8);
-            border-radius: 6px;
-        }
-    }
-</style>
+<style src="./index.scss" lang="sass"></style>

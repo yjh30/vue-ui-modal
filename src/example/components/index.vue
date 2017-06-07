@@ -9,6 +9,7 @@
 </template>
 
 <script>
+    import './index.scss';
     import utils from '../../main/index';
 
     export default {
@@ -87,5 +88,3 @@
         }
     }
 </script>
-
-<style src="./index.scss" lang="sass"></style>

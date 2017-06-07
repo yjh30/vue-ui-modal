@@ -7,6 +7,7 @@
 </template>
 
 <script>
+    import './index.scss';
     export default {
         mounted() {
             if (this.autoDismiss) {
@@ -27,5 +28,3 @@
         }
     }
 </script>
-
-<style src="./index.scss" lang="sass"></style>
